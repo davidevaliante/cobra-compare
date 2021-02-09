@@ -29,6 +29,8 @@ const BonusStripe: FunctionComponent<Props> = ({ bonus, eng = false, countryCode
         const linkToOpen = extractLink()
         if(linkToOpen.includes('leovegas')) Router.push('/visita/leovegas')
         if(linkToOpen.includes('starvegas')) Router.push('/visita/starvegas')
+        if(linkToOpen.includes('lottomatica')) Router.push('/visita/lottomatica')
+        if(linkToOpen.includes('admiral')) Router.push('/visita/admiralyes')
         window.open(extractLink())
     }
 
@@ -85,12 +87,12 @@ const BonusStripe: FunctionComponent<Props> = ({ bonus, eng = false, countryCode
 
             <RowDeposit onClick={() => visit()}>
                 <div className='deposit-container'>
-                    <h3>{!eng ? 'No Deposit' : 'No Deposit'}</h3>
+                    <h3>{'Senza Deposito'}</h3>
                     <p>{extractNoDepositText()}</p>
                 </div>
 
                 <div className='deposit-container'>
-                    <h3>{!eng ? 'With Deposit' : 'With Deposit'}</h3>
+                    <h3>{'Con Deposito'}</h3>
                     <p>{extractWithDepositText()}</p>
                 </div>
             </RowDeposit>
@@ -101,7 +103,7 @@ const BonusStripe: FunctionComponent<Props> = ({ bonus, eng = false, countryCode
                 </GuideButton>} */}
 
                 <WebSiteButton onClick={() => visit()}>
-                    {!eng ? 'VISIT THE WEBSITE' : 'VISIT THE WEBSITE'}
+                    {'Visita il sito'}
                 </WebSiteButton>
             </Row>
         </Container>
