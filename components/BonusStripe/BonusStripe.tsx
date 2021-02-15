@@ -26,12 +26,14 @@ const BonusStripe: FunctionComponent<Props> = ({ bonus, eng = false, countryCode
     const { currentCountry } = useContext(countryContext)
 
     const visit = () => {
-        const linkToOpen = extractLink()
-        if(linkToOpen.includes('leovegas')) Router.push('/visita/leovegas')
-        if(linkToOpen.includes('starvegas')) Router.push('/visita/starvegas')
-        if(linkToOpen.includes('lottomatica')) Router.push('/visita/lottomatica')
-        if(linkToOpen.includes('admiral')) Router.push('/visita/admiralyes')
-        window.open(extractLink())
+        // const linkToOpen = extractLink()
+        // if(linkToOpen.includes('leovegas')) Router.push('/visita/leovegas')
+        // if(linkToOpen.includes('starvegas')) Router.push('/visita/starvegas')
+        // if(linkToOpen.includes('lottomatica')) Router.push('/visita/lottomatica')
+        // if(linkToOpen.includes('admiral')) Router.push('/visita/admiralyes')
+        // window.open(extractLink())
+
+        Router.push(`/visita/${bonus.compareCode}/${countryCode}`)
     }
 
     const extractNoDepositText = () => {

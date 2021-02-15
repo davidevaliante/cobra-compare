@@ -48,6 +48,8 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
         const streamerBonuses = streamerData.bonuses
         const placeholder : StreamerBonus[] = []
 
+        console.log(streamerBonuses)
+
         bonusToShow.forEach((bonusCode) =>{
             const b = streamerBonuses.find(b => b.compareCode === bonusCode)
             if(b) placeholder.push(b)

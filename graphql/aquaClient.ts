@@ -4,7 +4,7 @@ import {configuration} from '../configuration'
 class AquaClient {
     axios: AxiosInstance;
 
-    constructor(public baseURL: string = configuration.api, public headers?: string) {
+    constructor(public baseURL: string = `${configuration.api}/graphql`, public headers?: string) {
         this.axios = axios.create({ baseURL })
     }
 

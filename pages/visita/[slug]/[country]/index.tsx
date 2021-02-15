@@ -1,9 +1,8 @@
 import React from 'react'
-import AquaClient from '../../../graphql/aquaClient'
 import Head from 'next/head'
 import { FunctionComponent } from 'react';
-import { configuration } from '../../../configuration';
-import { Streamer } from './../../../models/streamer';
+import AquaClient from '../../../../graphql/aquaClient';
+import { configuration } from '../../../../configuration';
 
 interface Props {
     redirect: string
@@ -68,6 +67,7 @@ export async function getServerSideProps({ query, res }) {
 
 
     const slug = query.slug as string
+    const country = query.country as string
 
     let redirect
 
@@ -84,16 +84,9 @@ export async function getServerSideProps({ query, res }) {
         }
     })
 
-    const link = links.data.data.streamer.bonuses[0].links.find(b => b.label === `${slug} ${configuration.streamerName} it`)
+    const link = links.data.data.streamer.bonuses[0].links.find(b => b.label === `${slug} ${configuration.streamerName} ${country}`)
 
     
-
-
-
-    // if (slug === 'starvegas') redirect = 'https://www.starvegas.it/gmg/refer/5ee3b2e8e32951000129f2d7'
-    // if (slug === 'leovegas') redirect = 'https://ads.leovegas.com/redirect.aspx?pid=3660661&bid=14965'
-    // if (slug === 'lottomatica') redirect = 'https://wllottomatica.adsrv.eacdn.com/C.ashx?btag=a_677b_1814c_&affid=552&siteid=677&adid=1814&c='
-    // if (slug === 'admiralyes') redirect = 'http://wladmiralinteractive.adsrv.eacdn.com/C.ashx?btag=a_2559b_401c_&affid=827&siteid=2559&adid=401'
     
     return {
         props: {
