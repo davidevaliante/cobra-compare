@@ -27,8 +27,8 @@ interface Props {
 
 const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 
-    console.log(bonusToShow)
 
+    const [loading, setLoading] = useState(true)
     const [country, setCountry] = useState<string | undefined>(undefined)
     const [bonuses, setBonuses] = useState<StreamerBonus[] | undefined>(undefined)
 
@@ -38,10 +38,10 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
     }, [])
 
     const geoLocate = async () => {
-        const geolocation = await axios.get('https://ipapi.co/json/')
-        const { country_code } = geolocation.data
+        // const geolocation = await axios.get('https://ipapi.co/json/')
+        // const { country_code } = geolocation.data
         getBonusByName()
-        if(country_code) setCountry(lowerCase(country_code))
+        // if(country_code) setCountry(lowerCase(country_code))
     }
 
     const getBonusByName = () => {
@@ -56,11 +56,12 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
         })
 
         setBonuses(placeholder)
+        setLoading(false)
         console.log(placeholder, 'bonus to show')
     }
     
 
-    if(!country) return <FullPageLoader />
+    if(loading) return <FullPageLoader />
     return (
         <Wrapper>
             <Container>
