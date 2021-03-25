@@ -29,7 +29,7 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 
 
     const [loading, setLoading] = useState(true)
-    const [country, setCountry] = useState<string | undefined>(undefined)
+    const [country, setCountry] = useState<string>('it')
     const [bonuses, setBonuses] = useState<StreamerBonus[] | undefined>(undefined)
 
   
