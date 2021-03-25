@@ -41,7 +41,7 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
         // const geolocation = await axios.get('https://ipapi.co/json/')
         // const { country_code } = geolocation.data
         getBonusByName()
-        // if(country_code) setCountry(lowerCase(country_code))
+        setCountry(lowerCase('it'))
     }
 
     const getBonusByName = () => {
