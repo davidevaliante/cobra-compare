@@ -38,10 +38,8 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
     }, [])
 
     const geoLocate = async () => {
-        const userCountryRequest = await axios.get(configuration.geoApi)
-        const countryCode = lowerCase(userCountryRequest.data.country_code2)
         getBonusByName()
-        setCountry(countryCode)
+        setCountry('it')
     }
 
     const getBonusByName = () => {
