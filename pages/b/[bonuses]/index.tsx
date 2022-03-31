@@ -27,6 +27,9 @@ interface Props {
 
 const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 	const [country, setCountry] = useState<string | undefined>(undefined)
+	useEffect(() => {
+		if (country !== '') getBonusByName()
+	}, [country])
 	const [bonuses, setBonuses] = useState<StreamerBonus[] | undefined>(
 		undefined
 	)
@@ -36,8 +39,9 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 	}, [])
 
 	const geoLocate = async () => {
-		getBonusByName()
-		setCountry('it')
+		const userCountryRequest = await axios.get(configuration.geoApi)
+		const countryCode = lowerCase(userCountryRequest.data.country_code2)
+		setCountry(countryCode)
 	}
 
 	const getBonusByName = () => {
@@ -56,6 +60,52 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 	}
 
 	if (!country) return <FullPageLoader />
+	if (country !== 'it' && country !== 'mt')
+		// if (country === 'it')
+		return (
+			<Wrapper>
+				<Container>
+					<div className='top-bar' style={{ cursor: 'pointer' }}>
+						<img className='logo' src='/icons/app_icon.png' />
+					</div>
+
+					<div>
+						<h1 style={{ margin: '1rem 0rem' }}>
+							Watch more YouTube videos :
+						</h1>
+						<div className='rwd-video'>
+							<iframe
+								src={`https://www.youtube.com/embed/6FEPMWJWDMk`}
+								allowFullScreen
+								frameBorder='0'
+								height='315'
+								width='560'
+							/>
+						</div>
+
+						<div className='rwd-video'>
+							<iframe
+								src={`https://www.youtube.com/embed/fxy2h4_SLiQ`}
+								allowFullScreen
+								frameBorder='0'
+								height='315'
+								width='560'
+							/>
+						</div>
+
+						<div className='rwd-video'>
+							<iframe
+								src={`https://www.youtube.com/embed/G_ky2SXXKDI`}
+								allowFullScreen
+								frameBorder='0'
+								height='315'
+								width='560'
+							/>
+						</div>
+					</div>
+				</Container>
+			</Wrapper>
+		)
 	return (
 		<Wrapper>
 			<Container>
