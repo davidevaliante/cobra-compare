@@ -217,8 +217,12 @@ const RowDeposit = styled.div`
 	}
 
 	.deposit-container {
-		max-width: 220px;
-		min-width: 220px;
+		width: 40%;
+
+		${desktop} {
+			max-width: 220px;
+			min-width: 220px;
+		}
 	}
 
 	h3 {
