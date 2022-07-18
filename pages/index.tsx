@@ -1,12 +1,9 @@
-import styled from 'styled-components'
-import Head from 'next/head'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { configuration } from '../configuration'
 import AquaClient from '../graphql/aquaClient'
 import { Streamer, StreamerBonus } from '../models/streamer'
 import Wrapper from '../components/Layouts/Wrapper'
-import lowerCase from 'lodash/lowerCase'
 import BonusStripe from '../components/BonusStripe/BonusStripe'
 import VideoDiscalimer from '../components/VideoDisclaimer/VideoDisclaimer'
 import FullPageLoader from '../components/FullPageLoader'
@@ -42,21 +39,50 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
 	const getBonusList = async () => {
 		let bonusForCountry = streamerData.countryBonusList.filter(
 			it => it.label === country
-		)
-		if (bonusForCountry.length == 0)
+		)[0].bonuses
+
+		console.log(bonusForCountry, country)
+
+		if (bonusForCountry.length == 0) {
 			bonusForCountry = streamerData.countryBonusList.filter(
 				it => it.label === 'row'
+			)[0].bonuses
+			setCountry('row')
+		}
+
+		const ordering = streamerData.countryBonusList
+			.filter(it => it.label === country)[0]
+			//@ts-ignore
+			.ordering.split(' ')
+
+		let unorderedBonuses = [...bonusForCountry]
+
+		let ordered: StreamerBonus[] = []
+
+		ordering.forEach(code => {
+			const matchingBonus = unorderedBonuses.find(
+				it => it.compareCode === code
 			)
+			if (matchingBonus) {
+				ordered.push(matchingBonus)
+				unorderedBonuses = unorderedBonuses.filter(
+					b => b.compareCode !== code
+				)
+			}
+		})
+		console.log(streamerData.bonuses)
+		const finalList = [...ordered, ...unorderedBonuses]
+			.map(b => {
+				const match = streamerData.bonuses.find(it => it.id == b.id)
+				if (match !== undefined) return match
+				else return undefined
+			})
+			.filter(it => it !== undefined)
 
-		const requests = bonusForCountry[0].bonuses.map(b =>
-			axios.get(`${configuration.api}/bonuses/${b.id}`)
-		)
+		console.log(finalList, 'final list')
 
-		const bList = await Promise.all(requests)
-
-		console.log(bList.map(r => r.data as StreamerBonus[]))
-
-		setBonuses(bList.map(r => r.data as StreamerBonus))
+		//@ts-ignore
+		setBonuses(finalList)
 		setLoading(false)
 	}
 
