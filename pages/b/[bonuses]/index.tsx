@@ -27,6 +27,7 @@ interface Props {
 
 const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 	const [country, setCountry] = useState<string | undefined>(undefined)
+
 	useEffect(() => {
 		if (country !== '') getBonusByName()
 	}, [country])
@@ -75,7 +76,7 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 						</h1>
 						<div className='rwd-video'>
 							<iframe
-								src={`https://www.youtube.com/embed/6FEPMWJWDMk`}
+								src={`https://www.youtube.com/embed/290b2Pmj0ZI`}
 								allowFullScreen
 								frameBorder='0'
 								height='315'
@@ -85,7 +86,7 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 
 						<div className='rwd-video'>
 							<iframe
-								src={`https://www.youtube.com/embed/fxy2h4_SLiQ`}
+								src={`https://www.youtube.com/embed/NXZsfSlZvL0`}
 								allowFullScreen
 								frameBorder='0'
 								height='315'
@@ -95,7 +96,7 @@ const Compare: FunctionComponent<Props> = ({ streamerData, bonusToShow }) => {
 
 						<div className='rwd-video'>
 							<iframe
-								src={`https://www.youtube.com/embed/G_ky2SXXKDI`}
+								src={`https://www.youtube.com/embed/X4wJDs8A5lQ`}
 								allowFullScreen
 								frameBorder='0'
 								height='315'

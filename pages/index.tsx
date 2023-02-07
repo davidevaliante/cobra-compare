@@ -8,6 +8,7 @@ import BonusStripe from '../components/BonusStripe/BonusStripe'
 import VideoDiscalimer from '../components/VideoDisclaimer/VideoDisclaimer'
 import FullPageLoader from '../components/FullPageLoader'
 import Container from '../components/Layouts/Container'
+import lowerCase from 'lodash/lowerCase'
 
 interface Props {
 	streamerData: Streamer
@@ -17,7 +18,8 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
 	const [loading, setLoading] = useState(true)
 	const [country, setCountry] = useState<string>('')
 	useEffect(() => {
-		if (country !== '') getBonusList()
+		if (country === 'it') getBonusList()
+		else setLoading(false)
 	}, [country])
 	const [bonuses, setBonuses] = useState<StreamerBonus[] | undefined>(
 		undefined
@@ -33,7 +35,9 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
 	}, [])
 
 	const geoLocate = async () => {
-		setCountry('it')
+		const userCountryRequest = await axios.get(configuration.geoApi)
+		const countryCode = lowerCase(userCountryRequest.data.country_code2)
+		if (countryCode) setCountry(countryCode)
 	}
 
 	const getBonusList = async () => {
@@ -94,9 +98,21 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
 					<img className='logo' src='/icons/app_icon.png' />
 				</div>
 
-				<h1>Comparazione offerte siti legali in Italia:</h1>
+				{country === 'it' && (
+					<h1>Comparazione offerte siti legali in Italia:</h1>
+				)}
+
+				{country !== 'it' && (
+					<iframe
+						style={{ margin: '0 auto', display: 'block' }}
+						width='100%'
+						height='500px'
+						src='https://www.youtube.com/embed/z2AbJd3Zxe4'
+					/>
+				)}
 
 				{bonuses &&
+					country === 'it' &&
 					bonuses.length > 2 &&
 					bonuses.map((bonus: StreamerBonus) => (
 						<BonusStripe
@@ -107,6 +123,7 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
 					))}
 
 				{bonuses &&
+					country === 'it' &&
 					bonuses.length <= 2 &&
 					streamerData.bonuses.map((bonus: StreamerBonus) => (
 						<BonusStripe
