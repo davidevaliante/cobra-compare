@@ -1,20 +1,11 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
-import axios from "axios";
-import { configuration } from "../configuration";
-import AquaClient from "../graphql/aquaClient";
-import { Streamer, StreamerBonus } from "../models/streamer";
-import BonusStripe from "../components/BonusStripe/BonusStripe";
-import VideoDiscalimer from "../components/VideoDisclaimer/VideoDisclaimer";
-import FullPageLoader from "../components/FullPageLoader";
-import lowerCase from "lodash/lowerCase";
+import React, { FunctionComponent } from "react";
 import Wrapper from "../../../components/Layouts/Wrapper";
 import Container from "../../../components/Layouts/Container";
 
 interface Props {
-  streamerData: Streamer;
 }
 
-const index: FunctionComponent<Props> = ({ streamerData }) => {
+const index: FunctionComponent<Props> = () => {
   return (
     <Wrapper>
       <Container>
@@ -47,7 +38,7 @@ const index: FunctionComponent<Props> = ({ streamerData }) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps() {
   return {
     props: {},
   };

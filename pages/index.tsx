@@ -1,14 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import axios from "axios";
-import { configuration } from "../configuration";
-import AquaClient from "../graphql/aquaClient";
 import { Streamer, StreamerBonus } from "../models/streamer";
 import Wrapper from "../components/Layouts/Wrapper";
-import BonusStripe from "../components/BonusStripe/BonusStripe";
-import VideoDiscalimer from "../components/VideoDisclaimer/VideoDisclaimer";
-import FullPageLoader from "../components/FullPageLoader";
 import Container from "../components/Layouts/Container";
-import lowerCase from "lodash/lowerCase";
 
 interface Props {
   streamerData: Streamer;
